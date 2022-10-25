@@ -9,10 +9,8 @@ type Props = {
 };
 
 export const Container = styled(TouchableOpacity)`
-  flex: 1;
-
-  min-height: 56px;
-  max-height: 56px;
+  width: 56px;
+  height: 56px;
 
   justify-content: center;
   align-items: center;
