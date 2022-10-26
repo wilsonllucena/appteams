@@ -16,3 +16,6 @@ export default function PlayerCard({name, onRemove}: Props) {
         </Container>
     )
 }
+
+
+
