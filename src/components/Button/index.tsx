@@ -2,7 +2,8 @@ import { ButtonTypeStyleProps, Container, Title } from "./styles";
 
 type Props = {
     title: string;
-    type?: ButtonTypeStyleProps
+    type?: ButtonTypeStyleProps;
+    onPress?: () => void;
 }
 
 export function Button({ title, type = 'PRIMARY', ...rest }: Props) {
