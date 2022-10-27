@@ -2,7 +2,7 @@ import { TouchableOpacityProps } from "react-native";
 import { Container, Title, UsersIcon } from "./styles";
 
 type Props = TouchableOpacityProps & {
-    title: string
+    title: string,
 }
 
 export default function GroupCard({title , ...rest}: Props){
