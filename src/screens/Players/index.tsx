@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Alert, FlatList, TextInput } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { playerAddBygroup } from "@storage/player/playerAddBygroup";
 import { playersGetByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
@@ -19,6 +19,7 @@ import PlayerCard from "@components/PlayerCard";
 
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+import { groupRemoveByName } from "@storage/group/groupRemoveByName";
 
 type RouteParams = {
     group: string
@@ -26,12 +27,12 @@ type RouteParams = {
 
 export default function Players() {
     const newPlayerNameInputRef = useRef<TextInput>(null);
-
     const [newPlayerName, setNewPlayerName] = useState("");
     const [team, setTeam] = useState("Time A");
     const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
     const route = useRoute();
     const { group } = route.params as RouteParams;
+    const navigation = useNavigation();
 
     async function handleAddPlayer() {
         if (newPlayerName.trim().length === 0) {
@@ -75,6 +76,25 @@ export default function Players() {
         } catch (error) {
             Alert.alert("Pessoa", "Não foi possivel remover essa pessoa")
         }
+    }
+
+    async function groupRemove(){
+        try {
+            await groupRemoveByName(group);
+            navigation.navigate("groups");
+        } catch (error) {
+            Alert.alert("Remover grupo", "Não foi possivel remover o grupo.")
+        }
+    }
+    async function handleGroupRemove(group:string) {
+        Alert.alert(
+            "Remover", 
+            "Deseja remover o grupo?", 
+            [
+                { text: "Não", style: "cancel"},
+                { text: "Sim", onPress: () => groupRemove()},
+            ]
+        )
     }
 
     useEffect(() => {
@@ -136,7 +156,11 @@ export default function Players() {
                 ]}
             />
 
-            <Button title="Remover turma" type="SECONDARY" />
+            <Button 
+                title="Remover turma" 
+                type="SECONDARY" 
+                onPress={() => {}}
+            />
         </Container>
     )
 }
