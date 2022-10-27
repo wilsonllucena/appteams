@@ -159,7 +159,7 @@ export default function Players() {
             <Button 
                 title="Remover turma" 
                 type="SECONDARY" 
-                onPress={() => {}}
+                onPress={() => handleGroupRemove(group)}
             />
         </Container>
     )
